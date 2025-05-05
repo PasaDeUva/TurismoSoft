@@ -17,7 +17,6 @@ class Cliente {
 		return this._contacto;
 	}
 
-
 	agregarReserva(reserva) {
 		const idReserva = crypto.randomUUID(); // Cambiar por ID de objeto cuando se cree la entidad reserva
 		this.reservas[idReserva] = reserva;
