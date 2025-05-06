@@ -18,6 +18,6 @@ Follow these steps to install and run the project:
 
 ## Authors
 
-- **Acosta Santiago** 
-- **Valoni Mercedes** 
+- **Acosta Santiago**
+- **Valoni Mercedes**
 - **Zanotti Emiliano**
