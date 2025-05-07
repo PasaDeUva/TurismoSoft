@@ -8,9 +8,9 @@ describe('Cliente Class', () => {
   });
 
   test('Debe crear una instancia Cliente con los campos pasados por constructor', () => {
-    expect(cliente.nombre()).toBe('Pepe');
-    expect(cliente.apellido()).toBe('Argento');
-    expect(cliente.contacto()).toBe('54 12345678910');
+    expect(cliente.getNombre()).toBe('Pepe');
+    expect(cliente.getApellido()).toBe('Argento');
+    expect(cliente.getContacto()).toBe('54 12345678910');
   });
 
   test('Se puede asignar una reserva', () => {

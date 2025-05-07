@@ -3,28 +3,28 @@ class Cliente {
 		this._nombre = nombre;
 		this._apellido = apellido;
 		this._contacto = contacto;
-		this.reservas = {};
+		this._reservas = {};
 	}
-	nombre() {
+	getNombre() {
 		return this._nombre;
 	}
 
-	apellido() {
+	getApellido() {
 		return this._apellido;
 	}
 
-	contacto() {
+	getContacto() {
 		return this._contacto;
 	}
 
 	agregarReserva(reserva) {
 		const idReserva = crypto.randomUUID(); // Cambiar por ID de objeto cuando se cree la entidad reserva
-		this.reservas[idReserva] = reserva;
+		this._reservas[idReserva] = reserva;
 		return idReserva;
 	}
 
 	getReserva(idReserva) {
-		return this.reservas[idReserva]
+		return this._reservas[idReserva]
 	}
 }
 
