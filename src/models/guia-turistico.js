@@ -6,19 +6,19 @@ class GuiaTuristico {
   }
 
   getNombre() {
-    return this.nombre;
+    return this._nombre;
   }
 
   getApellido() {
-    return this.apellido;
+    return this._apellido;
   }
 
   getIdioma() {
-    return this.idioma;
+    return this._idioma;
   }
 
   setIdioma(idioma) {
-    this.idioma = idioma;
+    this._idioma = idioma;
   }
 }
 
