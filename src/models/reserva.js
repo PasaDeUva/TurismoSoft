@@ -10,42 +10,42 @@ class Reserva {
   }
 
   constructor(experiencia, cliente, fechaExperiencia, cantPersonas) {
-    this.id = crypto.randomUUID();
-    this.experiencia = experiencia;
-    this.cliente = cliente;
-    this.fechaReserva = new Date(); // Fecha actual
-    this.fechaExperiencia = fechaExperiencia;
-    this.cantPersonas = cantPersonas;
-    this.estado = EstadoReserva.PENDIENTE;
-    this.montoTotal = this.calcularMontoTotal();
-    this.fechaLimitePago = this.calcularFechaLimitePago();
+    this._id = crypto.randomUUID();
+    this._experiencia = experiencia;
+    this._cliente = cliente;
+    this._fechaReserva = new Date(); // Fecha actual
+    this._fechaExperiencia = fechaExperiencia;
+    this._cantPersonas = cantPersonas;
+    this._estado = EstadoReserva.PENDIENTE;
+    this._montoTotal = this.calcularMontoTotal();
+    this._fechaLimitePago = this.calcularFechaLimitePago();
   }
 
   calcularMontoTotal() {
-    let precioBase = this.experiencia.calcularCostoTotal(this.cantPersonas);
+    let precioBase = this._experiencia.calcularCostoTotal(this._cantPersonas);
 
     return precioBase;
   }
 
   calcularFechaLimitePago() {
-    const fechaLimite = new Date(this.fechaReserva);
+    const fechaLimite = new Date(this._fechaReserva);
     fechaLimite.setDate(fechaLimite.getDate() + 7);
     return fechaLimite;
   }
 
   confirmarReserva() {
-    this.estado = EstadoReserva.CONFIRMADA;
+    this._estado = EstadoReserva.CONFIRMADA;
     return true;
   }
 
   cancelarReserva() {
-    this.estado = EstadoReserva.CANCELADA;
+    this._estado = EstadoReserva.CANCELADA;
     // TODO: Lógica para liberar cupos en la experiencia y notificar lista de espera
   }
 
   verificarVencimientoReserva() {
-    if (this.estado === EstadoReserva.PENDIENTE && new Date() > this.fechaLimitePago) {
-      this.estado = EstadoReserva.VENCIDA;
+    if (this._estado === EstadoReserva.PENDIENTE && new Date() > this._fechaLimitePago) {
+      this._estado = EstadoReserva.VENCIDA;
       // TODO: Lógica para liberar cupos en la experiencia y notificar lista de espera
     }
   }
