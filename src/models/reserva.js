@@ -2,13 +2,6 @@ const EstadoReserva = require('../util/estado-reserva.js');
 
 class Reserva {
 
-  static EstadoReserva = {
-    PENDIENTE: 'pendiente',
-    CONFIRMADA: 'confirmada',
-    CANCELADA: 'cancelada',
-    VENCIDA: 'vencida'
-  }
-
   constructor(experiencia, cliente, fechaExperiencia, cantPersonas) {
     this._id = crypto.randomUUID();
     this._experiencia = experiencia;
@@ -17,14 +10,44 @@ class Reserva {
     this._fechaExperiencia = fechaExperiencia;
     this._cantPersonas = cantPersonas;
     this._estado = EstadoReserva.PENDIENTE;
-    this._montoTotal = this.calcularMontoTotal();
+    this._montoTotal = this._experiencia.calcularCostoTotal(this._cantPersonas);
     this._fechaLimitePago = this.calcularFechaLimitePago();
   }
 
-  calcularMontoTotal() {
-    let precioBase = this._experiencia.calcularCostoTotal(this._cantPersonas);
+  getId() {
+    return this._id;
+  }
 
-    return precioBase;
+  getExperiencia() {
+    return this._experiencia;
+  }
+
+  getCliente() {
+    return this._cliente;
+  }
+
+  getFechaReserva() {
+    return this._fechaReserva;
+  }
+
+  getFechaExperiencia() {
+    return this._fechaExperiencia;
+  }
+
+  getCantPersonas() {
+    return this._cantPersonas;
+  }
+
+  getEstado() {
+    return this._estado;
+  }
+
+  getMontoTotal() {
+    return this._montoTotal
+  }
+
+  getFechaLimitePago() {
+    return this._fechaLimitePago
   }
 
   calcularFechaLimitePago() {
