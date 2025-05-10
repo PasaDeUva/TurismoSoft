@@ -22,7 +22,7 @@ class Cliente {
     return this._reservas;
   }
 
-  agregarReserva(reserva) {
+  addReserva(reserva) {
     if (this.getReservas().includes(reserva)) {
       throw new Error('La reserva ya existe.');
     }

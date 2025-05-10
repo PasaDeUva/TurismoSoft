@@ -15,23 +15,23 @@ describe('Cliente Class', () => {
 
   test('Se puede asignar una reserva', () => {
     const mockReserva = { id: 1, detalles: 'Mock Reserva' };
-    cliente.agregarReserva(mockReserva);
+    cliente.addReserva(mockReserva);
     expect(cliente.getReservas().length).toBe(1);
     expect(cliente.getReservas().includes(mockReserva)).toEqual(true);
   });
 
   test('No se puede asignar la misma reserva dos veces', () => {
     const mockReserva = { id: 2, detalles: 'Mock Reserva' };
-    cliente.agregarReserva(mockReserva);
-    expect(() => cliente.agregarReserva(mockReserva)).toThrow(Error);
+    cliente.addReserva(mockReserva);
+    expect(() => cliente.addReserva(mockReserva)).toThrow(Error);
   });
 
   test('Se pueden asignar multiples reservas', () => {
     const mockReserva1 = { id: 1, detalles: 'Mock Reserva' };
     const mockReserva2 = { id: 2, detalles: 'Mock Reserva' };
 
-    cliente.agregarReserva(mockReserva1);
-    cliente.agregarReserva(mockReserva2);
+    cliente.addReserva(mockReserva1);
+    cliente.addReserva(mockReserva2);
 
     expect(cliente.getReservas().length).toBe(2);
     expect(cliente.getReservas().includes(mockReserva1)).toEqual(true);
@@ -52,7 +52,7 @@ describe('Cliente Class', () => {
 
   test('Se puede eliminar una reserva', () => {
     const mockReserva = { id: 1, detalles: 'Mock Reserva' };
-    cliente.getReservas().push(mockReserva); // Simulando que la reserva ya fue agregada para desacoplar el test de agregarReserva
+    cliente.getReservas().push(mockReserva); // Simulando que la reserva ya fue agregada para desacoplar el test de addReserva
     cliente.removeReserva(mockReserva);
     expect(cliente.getReservas().length).toBe(0);
     expect(cliente.getReservas().includes(mockReserva)).toEqual(false);
