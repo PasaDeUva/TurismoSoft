@@ -1,31 +1,41 @@
 class Cliente {
-	constructor(nombre, apellido, contacto) {
-		this._nombre = nombre;
-		this._apellido = apellido;
-		this._contacto = contacto;
-		this._reservas = {};
-	}
-	getNombre() {
-		return this._nombre;
-	}
+  constructor(nombre, apellido, contacto) {
+    this._nombre = nombre;
+    this._apellido = apellido;
+    this._contacto = contacto;
+    this._reservas = [];
+  }
 
-	getApellido() {
-		return this._apellido;
-	}
+  getNombre() {
+    return this._nombre;
+  }
 
-	getContacto() {
-		return this._contacto;
-	}
+  getApellido() {
+    return this._apellido;
+  }
 
-	agregarReserva(reserva) {
-		const idReserva = crypto.randomUUID(); // Cambiar por ID de objeto cuando se cree la entidad reserva
-		this._reservas[idReserva] = reserva;
-		return idReserva;
-	}
+  getContacto() {
+    return this._contacto;
+  }
 
-	getReserva(idReserva) {
-		return this._reservas[idReserva]
-	}
+  getReservas() {
+    return this._reservas;
+  }
+
+  agregarReserva(reserva) {
+    if (this.getReservas().includes(reserva)) {
+      throw new Error('La reserva ya existe.');
+    }
+    this.getReservas().push(reserva);
+  }
+
+  removeReserva(reserva) {
+    const index = this.getReservas().indexOf(reserva);
+    if (index === -1) {
+      throw new Error('La reserva no existe.');
+    }
+    this.getReservas().splice(index, 1);
+  }
 }
 
 module.exports = Cliente;
