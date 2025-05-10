@@ -1,13 +1,11 @@
 const EstadoReserva = require('../util/estado-reserva.js');
 
 class Reserva {
-
-  constructor(experiencia, cliente, fechaExperiencia, cantPersonas) {
+  constructor(experiencia, cliente, cantPersonas) {
     this._id = crypto.randomUUID();
     this._experiencia = experiencia;
     this._cliente = cliente;
-    this._fechaReserva = new Date(); // Fecha actual
-    this._fechaExperiencia = fechaExperiencia;
+    this._fechaReserva = new Date();
     this._cantPersonas = cantPersonas;
     this._estado = EstadoReserva.PENDIENTE;
     this._montoTotal = this._experiencia.calcularCostoTotal(this._cantPersonas);
@@ -30,10 +28,6 @@ class Reserva {
     return this._fechaReserva;
   }
 
-  getFechaExperiencia() {
-    return this._fechaExperiencia;
-  }
-
   getCantPersonas() {
     return this._cantPersonas;
   }
@@ -43,17 +37,27 @@ class Reserva {
   }
 
   getMontoTotal() {
-    return this._montoTotal
+    return this._montoTotal;
   }
 
   getFechaLimitePago() {
-    return this._fechaLimitePago
+    return this._fechaLimitePago;
   }
 
   calcularFechaLimitePago() {
-    const fechaLimite = new Date(this._fechaReserva);
-    fechaLimite.setDate(fechaLimite.getDate() + 7);
-    return fechaLimite;
+    /* La fecha limite de pago es 7 dias a partir de la fecha de reserva
+     * o hasta 1 dia antes de la fecha de la experiencia, lo que ocurra primero.
+     */
+    const fechaReserva = new Date(this.getFechaReserva());
+    const fechaExperiencia = new Date(this.getExperiencia().getFecha());
+
+    let fechaLimitePago = new Date(fechaReserva);
+    fechaLimitePago.setDate(fechaReserva.getDate() + 7);
+
+    let fechaExperienciaLimite = new Date(fechaExperiencia);
+    fechaExperienciaLimite.setDate(fechaExperiencia.getDate() - 1);
+
+    return fechaLimitePago <= fechaExperienciaLimite ? fechaLimitePago : fechaExperienciaLimite;
   }
 
   confirmarReserva() {
@@ -63,17 +67,21 @@ class Reserva {
 
   cancelarReserva() {
     this._estado = EstadoReserva.CANCELADA;
-    // TODO: Lógica para liberar cupos en la experiencia y notificar lista de espera
+    this._notificarBajaReserva();
   }
 
   verificarVencimientoReserva() {
-    if (this._estado === EstadoReserva.PENDIENTE && new Date() > this._fechaLimitePago) {
+    if (this.getEstado() === EstadoReserva.PENDIENTE && new Date() > this.getFechaLimitePago()) {
       this._estado = EstadoReserva.VENCIDA;
-      // TODO: Lógica para liberar cupos en la experiencia y notificar lista de espera
+      this._notificarBajaReserva();
+      return true;
     }
+    return false;
   }
 
-
+  _notificarBajaReserva() {
+    // todo: this.getExperiencia().manejarLibracionCupo(this.getCantPersonas());
+  }
 }
 
 module.exports = Reserva;
