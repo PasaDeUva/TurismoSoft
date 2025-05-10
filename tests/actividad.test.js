@@ -1,4 +1,4 @@
-const Actividad = require('../src/models/Actividad');
+const Actividad = require('../src/models/actividad');
 
 describe('Clase Actividad', () => {
   let rapel;
